@@ -80,3 +80,19 @@ function validation (name,user,pass,confirmpass,mobileNumber,emails) {
     }
     return true;
 }
+
+
+test('Validation should be sucessful', () => {
+
+  expect(
+    validation("John","John123","test123","test123","61451406672","abc@gmail.com")
+  ).toBeTruthy();
+});
+
+
+test("Validation should be successful with special character", () => {
+
+  expect(
+    validation("asdasd","asdf","test@123","test@123","61451062442","abc@gmail.com")
+  ).toBeTruthy();
+});
