@@ -96,3 +96,27 @@ test("Validation should be successful with special character", () => {
     validation("asdasd","asdf","test@123","test@123","61451062442","abc@gmail.com")
   ).toBeTruthy();
 });
+
+test('Name with only whitespace should be treated as valid (equivalence partition: whitespace-only)', () => {
+  expect(
+    validation("   ", "John123", "test123", "test123", "61451406672", "abc@gmail.com")
+  ).toBeTruthy();
+});
+
+test('Very long name should be treated as valid (equivalence partition: long input)', () => {
+  const longName = "a".repeat(1000);
+  expect(
+    validation(longName, "John123", "test123", "test123", "61451406672", "abc@gmail.com")
+  ).toBeTruthy();
+});
+
+test("email with one character username should be treated as valid", () => {  
+  expect(
+    validation("John", "John123", "test123", "test123", "61451406672", "a@gmail.com")
+  ).toBeTruthy();
+}); 
+test("email starting with number should be treated as valid", () => {
+  expect(
+    validation("John", "John123", "test123", "test123", "61451406672", "123@gmail.com")
+  ).toBeTruthy(); 
+});
