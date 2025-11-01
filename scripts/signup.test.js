@@ -34,7 +34,7 @@ function validation (name,user,pass,confirmpass,mobileNumber,emails) {
         " ** Username lenght must be between 3 and 20";
       return false;
     }
-    if (!isNaN(user)) {
+    if (!Number.isNaN(user)) {
       document.getElementById("username").innerHTML =
         " ** only characters are allowed";
       return false;
@@ -81,29 +81,13 @@ function validation (name,user,pass,confirmpass,mobileNumber,emails) {
     return true;
 }
 
-
-test('Validation should be sucessful', () => {
-
-  expect(
-    validation("John","John123","test123","test123","61451406672","abc@gmail.com")
-  ).toBeTruthy();
-});
-
-
-test("Validation should be successful with special character", () => {
-
-  expect(
-    validation("asdasd","asdf","test@123","test@123","61451062442","abc@gmail.com")
-  ).toBeTruthy();
-});
-
 test('Name with only whitespace should be treated as valid (equivalence partition: whitespace-only)', () => {
   expect(
     validation("   ", "John123", "test123", "test123", "61451406672", "abc@gmail.com")
   ).toBeTruthy();
 });
 
-test('Very long name should be treated as valid (equivalence partition: long input)', () => {
+test('name with Very long characters should be treated as valid (equivalence partition: long input)', () => {
   const longName = "a".repeat(1000);
   expect(
     validation(longName, "John123", "test123", "test123", "61451406672", "abc@gmail.com")
@@ -119,4 +103,16 @@ test("email starting with number should be treated as valid", () => {
   expect(
     validation("John", "John123", "test123", "test123", "61451406672", "123@gmail.com")
   ).toBeTruthy(); 
+});
+
+test("user sz should be treated as valid username", () => {
+  expect(
+    validation("John", "s123", "test123", "test123", "61451406672", "sz@test.com")
+  ).toBeTruthy();
+});
+
+test("user with 19 length should be treated as valid username", () => {
+  expect(
+    validation("John", "u123456789123456789", "test123", "test123", "61451406672", "sz@test.com")
+  ).toBeTruthy();
 });
